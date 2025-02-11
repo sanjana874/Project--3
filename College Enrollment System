@@ -1,0 +1,60 @@
+class Student:
+    def __init__(self, roll_number, name, courses=None):
+        self.roll_number = roll_number
+        self.name = name
+        self.courses = courses if courses else []
+
+class CollegeEnrollmentSystem:
+    def __init__(self):
+        self.students = {}
+
+    def enroll_student(self):
+        roll_number = input("Enter roll number: ")
+        name = input("Enter student name: ")
+        courses = input("Enter courses (comma-separated): ").split(',')
+        
+        student = Student(roll_number, name, [course.strip() for course in courses])
+        self.students[roll_number] = student
+        print(f"Student {name} enrolled successfully.")
+
+    def assign_courses(self):
+        roll_number = input("Enter roll number: ")
+        if roll_number in self.students:
+            courses = input("Enter new courses (comma-separated): ").split(',')
+            self.students[roll_number].courses.extend([course.strip() for course in courses])
+            print("Courses assigned successfully.")
+        else:
+            print("Student not found.")
+
+    def view_student(self):
+        roll_number = input("Enter roll number: ")
+        if roll_number in self.students:
+            student = self.students[roll_number]
+            print(f"Roll Number: {student.roll_number}, Name: {student.name}, Courses: {', '.join(student.courses)}")
+        else:
+            print("Student not found.")
+
+    def run(self):
+        while True:
+            print("\nCollege Enrollment System")
+            print("1. Enroll Student")
+            print("2. Assign Courses")wha
+            print("3. View Student Details")
+            print("4. Exit")
+            
+            choice = input("Enter your choice: ")
+            if choice == '1':
+                self.enroll_student()
+            elif choice == '2':
+                self.assign_courses()
+            elif choice == '3':
+                self.view_student()
+            elif choice == '4':
+                print("Exiting system...")
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    system = CollegeEnrollmentSystem()
+    system.run()
